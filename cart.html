@@ -69,19 +69,19 @@
 			<div class="row">
 				<div class="col-md-12 ftco-animate">
 					<div class="cart-list">
-						<table class="table">
+						<table class="table table-responsive">
 							<thead class="thead-primary">
 								<tr class="text-center">
 									<th>&nbsp;</th>
-									<th>&nbsp;</th>
+									<th>Image</th>
 									<th>Product</th>
 									<th>Price</th>
 									<th>Quantity</th>
 									<th>Total</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr class="text-center">
+							<tbody id='productsContainer'>
+								<!-- <tr class="text-center">
 									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 									<td class="image-prod"><div class="img" style="background-image:url(img/product-3.jpg);"></div></td>
 									<td class="product-name">
@@ -91,12 +91,12 @@
 									<td class="price">$4.90</td>
 									<td class="quantity">
 										<div class="input-group mb-3">
-											<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+											<input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
 										</div>
 									</td>
 									<td class="total">$4.90</td>
-								</tr>
-								<tr class="text-center">
+								</tr> -->
+								<!-- <tr class="text-center">
 									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 									<td class="image-prod"><div class="img" style="background-image:url(img/product-4.jpg);"></div></td>
 									<td class="product-name">
@@ -110,7 +110,7 @@
 										</div>
 									</td>
 									<td class="total">$15.70</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -199,6 +199,7 @@
 	<script src="js/core/bootstrap-datepicker.js"></script>
 	<script src="js/core/scrollax.min.js"></script>
 	<script src="js/core/main.js"></script>
+	<script src="js/cart.js"></script>
 	<script>
 		$(document).ready(function() {
 			var quantitiy = 0;
@@ -224,5 +225,6 @@
 			});
 		});
 	</script>
+	
 </body>
 </html>
