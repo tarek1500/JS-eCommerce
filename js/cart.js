@@ -3,10 +3,13 @@ const DBName = 'cart'
 const DBVersion = '1'
 let db ;
 const CART_STORE_NAME ='Cart_Orders' 
+const ORDERS_STORE_NAME = 'Orders_History'
+const cartTotal = document.querySelector('#cartTotal')
 
 window.onload= e=>{
     if ('indexedDB' in window)
     openDB()
+    
 }
 
 function openDB()
@@ -18,6 +21,9 @@ function openDB()
         if(DBVersion < 2)
         {
             db.createObjectStore(CART_STORE_NAME,{keyPath:'id',autoIncrement : true})
+            db.createObjectStore(ORDERS_STORE_NAME ,{keyPath:'id',autoIncrement:true})
+            tx=req.transaction.objectStore(ORDERS_STORE_NAME)
+            order_index= tx.createIndex('prod_idx','prod_id',{unique:true})
             tx=req.transaction.objectStore(CART_STORE_NAME)
             prod_index=tx.createIndex('prod_idx','prod_id',{unique : true})
         }
@@ -44,10 +50,11 @@ function openDB()
                                 <input type="number" name="quantity" class="quantity form-control input-number" value="${product.quantity}" min="1" max="100">
                             </div>
                         </td>
-                        <td class="total">$4.90</td>
+                        <td class="total">$${product.quantity * response.data.Price}</td>
                     </tr>`
             
                     productsContainer.innerHTML+=cart_product;
+                    updateCartTotal()
                 })//end then for getFromApi function
         
              })//end forEach
@@ -99,6 +106,7 @@ function getFromApi(id)
 }
 
 $('body').delegate('.product-remove','click',removeFormCart)
+$('body').delegate('input.quantity','input' , changeQuantity)
 function removeFormCart(event)
 {
     event.preventDefault()
@@ -114,8 +122,35 @@ function removeFormCart(event)
         delReq.onsuccess=e=>{
             
             event.target.parentElement.parentElement.remove() 
+            updateCartTotal()
         } 
         
     }
+
+    
+}
+
+function changeQuantity(e)
+{
+    const productRow =  e.target.parentElement.parentElement.parentElement
+    const quantity= +e.target.value
+    let price = productRow.querySelector('.price').textContent
+    price=price.substring(1,price.length)
+    const total = productRow.querySelector('.total')
+    total.textContent = '$'+price * quantity
+    updateCartTotal()
+}
+
+function updateCartTotal()
+{
+    const totals= document.querySelectorAll('.total')
+    let cartTotalValue=0;
+    totals.forEach(ele => {
+        ele = ele.textContent.substring(1,ele.textContent.length)
+        cartTotalValue+=+ele
+
+    });
+    cartTotal.textContent = `$${cartTotalValue}`
+    
     
 }
