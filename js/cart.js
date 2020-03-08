@@ -5,6 +5,7 @@ let db ;
 const CART_STORE_NAME ='Cart_Orders' 
 const ORDERS_STORE_NAME = 'Orders_History'
 const cartTotal = document.querySelector('#cartTotal')
+const checkoutBtn = document.querySelector('#checkout') 
 
 window.onload= e=>{
     if ('indexedDB' in window)
@@ -22,8 +23,8 @@ function openDB()
         {
             db.createObjectStore(CART_STORE_NAME,{keyPath:'id',autoIncrement : true})
             db.createObjectStore(ORDERS_STORE_NAME ,{keyPath:'id',autoIncrement:true})
-            tx=req.transaction.objectStore(ORDERS_STORE_NAME)
-            order_index= tx.createIndex('prod_idx','prod_id',{unique:true})
+            // tx=req.transaction.objectStore(ORDERS_STORE_NAME)
+            // order_index= tx.createIndex('prod_idx','prod_id',{unique:true})
             tx=req.transaction.objectStore(CART_STORE_NAME)
             prod_index=tx.createIndex('prod_idx','prod_id',{unique : true})
         }
@@ -154,3 +155,39 @@ function updateCartTotal()
     
     
 }
+
+
+checkoutBtn.addEventListener('click',e=>{
+    e.preventDefault()
+    if(db instanceof IDBDatabase)
+    {
+        const productsRows = document.querySelectorAll('tbody tr')
+        let orderArray=[]
+        productsRows.forEach(productsRow=>{
+            const product_ID= productsRow.cells[0].querySelector('a').getAttribute('data-id')
+            const quantity = productsRow.cells[4].querySelector('input').value
+            orderArray.push({
+                id : product_ID,
+                quantity : quantity
+            })
+
+        })
+
+        console.log(orderArray);
+        
+        const tx= db.transaction(ORDERS_STORE_NAME,'readwrite')
+        const store = tx.objectStore(ORDERS_STORE_NAME)
+        let addReq= store.add({
+            products : orderArray,
+            date : new Date().toLocaleString(),
+            total : cartTotal.textContent
+
+        })
+        addReq.onsuccess=e=>{
+            console.log("order saved");
+            
+        }
+        
+        
+    }
+})
