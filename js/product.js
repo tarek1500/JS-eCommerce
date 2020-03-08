@@ -5,58 +5,62 @@
 var queryString = decodeURIComponent(window.location.search); //parsing
 queryString = queryString.substring(1);
 var url = 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/' + queryString;
+
     $.getJSON(url, function(data) {
-     
-  
 
-        var text = `ProductID: ${data.data.ProductId}`	
-        $(".txt").html(text);
+        var product_id = `ProductID: ${data.data.ProductId}`;
 		
 		
-		 var text1 =`${data.data.Category}` 
-		 $("#Category").html(text1);
+		 var category =`${data.data.Category}` 
+		 $("#Category").html(category);
 		 
-		 var text2 =`${data.data.MainCategory}` 
-		 $("#MainCategory").html(text2);
+		 var MainCategory =`${data.data.MainCategory}` 
+		 $("#MainCategory").html(MainCategory);
 		 
-		 var text3 =`${data.data.TaxTarifCode}` 
-		 $("#TaxTarifCode").html(text3);
-	 var text4 =`${data.data.SupplierName}` 
-		 $("#SupplierName").html(text4);
-		  var text5 =`${data.data.WeightMeasure}` 
-		 $("#WeightMeasure").html(text5);
+		 var TaxTarifCode =`${data.data.TaxTarifCode}` 
+		 $("#TaxTarifCode").html(TaxTarifCode);
+	 var SupplierName =`${data.data.SupplierName}` 
+		 $("#SupplierName").html(SupplierName);
+		  var WeightMeasure =`${data.data.WeightMeasure}` 
+		 $("#WeightMeasure").html(WeightMeasure);
 		 
-		  var text6 =` ${data.data.WeightUnit}` 
-		 $("#WeightUnit").html(text6);
-		 var text7 =`${data.data.Description}` 
-		 $("#description").html(text7);
-		  var text8 =`${data.data.Name}` 
-		 $("#name").html(text8);
+		  var WeightUnit =` ${data.data.WeightUnit}` 
+		 $("#WeightUnit").html(WeightUnit);
+		 var Description =`${data.data.Description}` 
+		 $("#description").html(Description);
+		  var Name=`${data.data.Name}` 
+		 $("#name").html(Name);
 		  
-		  var text9 =`${data.data.DateOfSale}` 
-		 $("#DateOfSale").html(text9);
-		  var text10 =`${data.data.Status}` 
-		 $("#Status").html(text10);
+		  var DateOfSale =`${data.data.DateOfSale}` 
+		 $("#DateOfSale").html(DateOfSale);
+		  var Status =`${data.data.Status}` 
+		 $("#Status").html(Status);
 		 
-		   var text11 =`${data.data.Quantity}` 
-		 $("#Quantity").html(text11);
-		   var text12 =`${data.data.UoM}` 
-		 $("#UoM").html(text12);
-		   var text13 =`${data.data.CurrencyCode}` 
-		 $("#CurrencyCode").html(text13);
-		   var text14 =` $ ${data.data.Price}` 
-		 $("#prices").html(text14);
-		   var text15 =`${data.data.Width}` 
-		 $("#Width").html(text15);
-		   var text16 =`${data.data.Depth}` 
-		 $("#Depth").html(text16);
-		   var text17 =`${data.data.Height}` 
-		 $("#Height").html(text17);
-		   var text18 =`${data.data.DimUnit}` 
-		 $("#DimUnit").html(text18);
-		 var text19 =`${data.data.ProductPicUrl}` 
+		   var Quantity =`${data.data.Quantity}` 
+		 $("#Quantity").html(Quantity);
+		   var UoM =`${data.data.UoM}` 
+		 $("#UoM").html(UoM);
+		   var CurrencyCode =`${data.data.CurrencyCode}` 
+		 $("#CurrencyCode").html(CurrencyCode);
+		   var Price =` $ ${data.data.Price}` 
+		 $("#prices").html(Price);
+		   var Width =`${data.data.Width}` 
+		 $("#Width").html(Width);
+		   var Depth =`${data.data.Depth}` 
+		 $("#Depth").html(Depth);
+		   var Height =`${data.data.Height}` 
+		 $("#Height").html(Height);
+		   var DimUnit =`${data.data.DimUnit}` 
+		 $("#DimUnit").html(DimUnit);
+		 var ProductpicUrl =`${data.data.ProductPicUrl}` 
          
-		 $( "#product-img" ).attr('src', text19);
+		 $( "#product-img" ).attr('src', ProductpicUrl);
+        $("#error").hide();
 
-		 
+    }).error(function() { 
+         var error_msg = `data not found` 
+            $("#error").html(error_msg);
+        $("#section").hide();
+    
+    
     });
