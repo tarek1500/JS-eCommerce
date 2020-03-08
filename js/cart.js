@@ -56,11 +56,13 @@ function openDB()
             
                     productsContainer.innerHTML+=cart_product;
                     updateCartTotal()
+                    updateCartTotalNumber()
                 })//end then for getFromApi function
         
              })//end forEach
 
         })//end then for getDataFromDB 
+       
 
     }//end req.onsucess
     req.onerror=e=>{
@@ -124,6 +126,8 @@ function removeFormCart(event)
             
             event.target.parentElement.parentElement.remove() 
             updateCartTotal()
+            updateCartTotalNumber()
+            
         } 
         
     }
@@ -140,6 +144,7 @@ function changeQuantity(e)
     const total = productRow.querySelector('.total')
     total.textContent = '$'+price * quantity
     updateCartTotal()
+    
 }
 
 function updateCartTotal()
@@ -191,3 +196,23 @@ checkoutBtn.addEventListener('click',e=>{
         
     }
 })
+
+function updateCartTotalNumber()
+{
+    if(db instanceof IDBDatabase)
+    {
+        // const totalNumber = document.querySelector('.icon-shopping_cart')
+        const totalNumber = document.querySelector('#totalNumber')
+        console.log(totalNumber);
+        
+        const tx= db.transaction(CART_STORE_NAME,'readwrite')
+        const store=tx.objectStore(CART_STORE_NAME)
+        const getALLReq = store.getAll()
+        getALLReq.onsuccess = e=>{
+            // console.log(event.target.result.length);
+            totalNumber .textContent=`[${event.target.result.length}]`
+        }
+        
+    }
+}
+
