@@ -35,7 +35,7 @@ function openDB()
         
         db = event.target.result
         getDataFromDB().then((products)=>{
-            productsContainer.innerHTML=''
+            if(products.length>0)productsContainer.innerHTML=''
             products.forEach( product =>{
                 getFromApi(product.prod_id).then(response =>{
                 let cart_product = `
@@ -265,7 +265,7 @@ function showNoProductsWarning()
                         <td class="total"></td>
                     </tr>`
 
-productsContainer.innerHTML = element
+    productsContainer.innerHTML = element
 }
 
 
