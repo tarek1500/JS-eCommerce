@@ -72,8 +72,6 @@ function openDB()
 
 function getFromApi(id)
 {
-    console.log(id);
-    
     let url = `https://afternoon-falls-30227.herokuapp.com/api/v1/products/${id}`
     return $.ajax({
         url: url,
@@ -110,6 +108,7 @@ function getFromApi(id)
 
 $('body').delegate('.product-remove','click',removeFormCart)
 $('body').delegate('input.quantity','input' , changeQuantity)
+
 function removeFormCart(event)
 {
     event.preventDefault()
@@ -144,7 +143,17 @@ function changeQuantity(e)
     const total = productRow.querySelector('.total')
     total.textContent = '$'+price * quantity
     updateCartTotal()
-    
+
+    const product_ID= productRow.cells[0].querySelector('a').getAttribute('data-id')
+    const tx=db.transaction(CART_STORE_NAME,'readwrite')
+    const store = tx.objectStore(CART_STORE_NAME)
+    const id_index= store.index('prod_idx') 
+    const Request = id_index.get(product_ID)
+    Request.onsuccess = e=>{
+        let prod_obj = event.target.result
+        prod_obj.quantity=quantity
+        store.put(prod_obj)
+    }    
 }
 
 function updateCartTotal()
@@ -167,33 +176,49 @@ checkoutBtn.addEventListener('click',e=>{
     if(db instanceof IDBDatabase)
     {
         const productsRows = document.querySelectorAll('tbody tr')
-        let orderArray=[]
-        productsRows.forEach(productsRow=>{
-            const product_ID= productsRow.cells[0].querySelector('a').getAttribute('data-id')
-            const quantity = productsRow.cells[4].querySelector('input').value
-            orderArray.push({
-                id : product_ID,
-                quantity : quantity
+        if(productsRows.length > 0){
+            let orderArray=[]
+            productsRows.forEach(productsRow=>{
+                const product_ID= productsRow.cells[0].querySelector('a').getAttribute('data-id')
+                const quantity = productsRow.cells[4].querySelector('input').value
+                orderArray.push({
+                    id : product_ID,
+                    quantity : quantity
+                })
+
             })
 
-        })
 
-        console.log(orderArray);
-        
-        const tx= db.transaction(ORDERS_STORE_NAME,'readwrite')
-        const store = tx.objectStore(ORDERS_STORE_NAME)
-        let addReq= store.add({
-            products : orderArray,
-            date : new Date().toLocaleString(),
-            total : cartTotal.textContent
+            
+            const tx= db.transaction(ORDERS_STORE_NAME,'readwrite')
+            const store = tx.objectStore(ORDERS_STORE_NAME)
+            let addReq= store.add({
+                products : orderArray,
+                date : new Date().toLocaleString(),
+                total : cartTotal.textContent
 
-        })
-        addReq.onsuccess=e=>{
-            console.log("order saved");
+            })
+            addReq.onsuccess=e=>{
+                console.log("order saved");
+                
+            }
+
+
+            //empty cart and cart store in db
+            const rows = document.querySelectorAll('.product-remove a')
+            rows.forEach(row => {
+                row.click()
+            })
+
+            //alert
+            const successAlert = document.querySelector('.alert')
+            successAlert.classList.remove('d-none')
+            setTimeout(()=>{
+                successAlert.classList.add('d-none')
+            },10000)
+            
             
         }
-        
-        
     }
 })
 
@@ -203,8 +228,6 @@ function updateCartTotalNumber()
     {
         // const totalNumber = document.querySelector('.icon-shopping_cart')
         const totalNumber = document.querySelector('#totalNumber')
-        console.log(totalNumber);
-        
         const tx= db.transaction(CART_STORE_NAME,'readwrite')
         const store=tx.objectStore(CART_STORE_NAME)
         const getALLReq = store.getAll()
