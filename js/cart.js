@@ -35,6 +35,7 @@ function openDB()
         
         db = event.target.result
         getDataFromDB().then((products)=>{
+            productsContainer.innerHTML=''
             products.forEach( product =>{
                 getFromApi(product.prod_id).then(response =>{
                 let cart_product = `
@@ -216,6 +217,8 @@ checkoutBtn.addEventListener('click',e=>{
             setTimeout(()=>{
                 successAlert.classList.add('d-none')
             },10000)
+
+            // showNoProductsWarning()
             
             
         }
@@ -234,8 +237,36 @@ function updateCartTotalNumber()
         getALLReq.onsuccess = e=>{
             // console.log(event.target.result.length);
             totalNumber .textContent=`[${event.target.result.length}]`
+            if(event.target.result.length == 0)
+            {
+                showNoProductsWarning()
+            }
         }
         
     }
 }
+
+
+function showNoProductsWarning()
+{
+    const element =`<tr class="text-center">
+                        <td class="product-remove"></td>
+                        <td class="image-prod"><div class="img"></div></td>
+                        <td class="product-name" style ="width: 55%;">
+                            <h3></h3>
+                            <p>No Products to Show <br><a href="./shop.html">add some</a></p>
+                        </td>
+                        <td class="price"></td>
+                        <td class="quantity">
+                            <div class="input-group mb-3">
+                                
+                            </div>
+                        </td>
+                        <td class="total"></td>
+                    </tr>`
+
+productsContainer.innerHTML = element
+}
+
+
 
