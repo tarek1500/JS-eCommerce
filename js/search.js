@@ -1,43 +1,18 @@
 document.addEventListener('DOMContentLoaded', e => {
-	sendRequest('Accessories', 1);
-
-	let productsStatsUrl = 'https://afternoon-falls-30227.herokuapp.com/api/v1/products-stats/';
-	fetch(productsStatsUrl).then(response => response.json()).then(response => {
-		if (response.status) {
-			let list = document.querySelector('#category-list');
-			let categories = response.data.Groups.Category;
-
-			for (const key in categories) {
-				if (categories.hasOwnProperty(key)) {
-					let li = document.createElement('li');
-					let a = document.createElement('a');
-
-					a.setAttribute('href', '#');
-					a.setAttribute('data-name', key);
-					a.setAttribute('data-page', 1);
-					a.innerText = key;
-					a.addEventListener('click', categoryClicked);
-					li.appendChild(a);
-					list.appendChild(li);
-				}
-			}
-		}
-	});
+	let filter = window.location.search;
+	filter = filter.substring(1);
+	sendRequest(filter, 1);
 
 	function categoryClicked (e) {
 		e.preventDefault();
 
-		let name = e.target.dataset.name;
+		let filter = e.target.dataset.filter;
 		let page = +e.target.dataset.page;
-		sendRequest(name, page);
-
-		$('html,body').animate({
-			scrollTop: $('.goto-here').offset().top + 300
-		}, 500, 'easeInOutExpo');
+		sendRequest(filter, page);
 	}
 
-	function sendRequest (name, page) {
-		let productsUrl = `https://afternoon-falls-30227.herokuapp.com/api/v1/products?category=${name}&page=${page}`;
+	function sendRequest (filter, page) {
+		let productsUrl = `https://afternoon-falls-30227.herokuapp.com/api/v1/products?q=${filter}&page=${page}`;
 		fetch(productsUrl).then(response => response.json()).then(response => {
 			if (response.status) {
 				let list = document.querySelector('#item-list');
@@ -52,7 +27,7 @@ document.addEventListener('DOMContentLoaded', e => {
 						let product = products[key];
 						let productUrl = `product.html?${product.ProductId}`
 						let item =
-							`<div class="col-sm-6 col-md-6 col-lg-4 fadeInUp ftco-animated">
+							`<div class="col-sm-6 col-md-4 col-lg-3 fadeInUp ftco-animated">
 								<div class="product">
 									<a href="${productUrl}" class="img-prod">
 										<img class="img-fluid" src="${product.ProductPicUrl}" alt="${product.Name}">
@@ -82,7 +57,7 @@ document.addEventListener('DOMContentLoaded', e => {
 					let a = document.createElement('a');
 
 					a.setAttribute('href', '#');
-					a.setAttribute('data-name', name);
+					a.setAttribute('data-filter', filter);
 					a.setAttribute('data-page', (page - 1) < 1 ? 1 : (page - 1));
 					a.innerText = '<';
 					a.addEventListener('click', categoryClicked)
@@ -103,7 +78,7 @@ document.addEventListener('DOMContentLoaded', e => {
 							a = document.createElement('a');
 
 							a.setAttribute('href', '#');
-							a.setAttribute('data-name', name);
+							a.setAttribute('data-filter', filter);
 							a.setAttribute('data-page', i + 1);
 							a.innerText = (i + 1);
 							a.addEventListener('click', categoryClicked)
@@ -117,7 +92,7 @@ document.addEventListener('DOMContentLoaded', e => {
 					a = document.createElement('a');
 
 					a.setAttribute('href', '#');
-					a.setAttribute('data-name', name);
+					a.setAttribute('data-filter', filter);
 					a.setAttribute('data-page', (page + 1) > pages ? pages : (page + 1));
 					a.innerText = '>';
 					a.addEventListener('click', categoryClicked)
