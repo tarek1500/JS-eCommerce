@@ -11,23 +11,19 @@ let name = document.querySelector('#name'),
 
 
 
-
 function sendData()
 {
-
     const data = {
         name: name.value,
         email: email.value,
-        subject: subject.text,
-        message: message.text
+        subject: subject.value,
+        message: message.value
     }
 
     
-    console.log(data.subject);
-    
     const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'https://afternoon-falls-30227.herokuapp.com/api/v1/contact_us',);
+    xhr.open('POST', 'https://afternoon-falls-30227.herokuapp.com/api/v1/contact_us');
 
     xhr.responseType = 'json';
   
@@ -52,21 +48,21 @@ function sendData()
                     emailError.textContent = ''
                 }
 
-                if(xhr.response.error.subject){
-                    subjectError.textContent = xhr.response.error.subject;
+                if(subject.textContent == ''){
+                    subjectError.textContent = "Subject is Required";
                 }else{
                     subjectError.textContent = ''
                 }
-
-                if(xhr.response.error.message){
-                    messageError.textContent = xhr.response.error.message;
+            
+                if(message.textContent == ''){
+                    messageError.textContent = "Message is Required";
                 }else{
                     messageError.textContent = ''
                 }
+            
             } else {
                 res.textContent = xhr.response.message
-                console.log(xhr.response);
-                
+                console.log(xhr.response);   
             }
             };
         
@@ -74,24 +70,7 @@ function sendData()
             console.log('Erooooor');
         };
 
-      xhr.send(JSON.stringify(data))
-
-
+      xhr.send(JSON.stringify(data));
 }
 
 submit.addEventListener('click', sendData);
-
-
-//       xhr.onload = () => {
-//         if (xhr.status >= 400) {
-//           reject(xhr.response);
-//         } else {
-//           resolve(xhr.response);
-//         }
-//       };
-  
-//       xhr.onerror = () => {
-//         reject('Erooooor');
-//       };
-  
-//       xhr.send(JSON.stringify(data))
