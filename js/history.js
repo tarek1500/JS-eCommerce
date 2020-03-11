@@ -27,6 +27,8 @@ req.onsuccess=e => {
             
             row.append(element);    
         });
+
+        cursor.continue()
         
 
     }
