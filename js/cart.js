@@ -6,7 +6,7 @@ const CART_STORE_NAME ='Cart_Orders'
 const ORDERS_STORE_NAME = 'Orders_History'
 const cartTotal = document.querySelector('#cartTotal')
 const checkoutBtn = document.querySelector('#checkout') 
-
+let MaxQuantity={}
 window.onload= e=>{
     if ('indexedDB' in window)
     openDB()
@@ -34,10 +34,12 @@ function openDB()
         console.log('onsuccess');
         
         db = event.target.result
+        getDBQuantity()
         getDataFromDB().then((products)=>{
             if(products.length>0)productsContainer.innerHTML=''
             products.forEach( product =>{
                 getFromApi(product.prod_id).then(response =>{
+                const productQuantity = MaxQuantity[response.data.ProductId]? response.data.Quantity-MaxQuantity[response.data.ProductId] :response.data.Quantity
                 let cart_product = `
                     <tr class="text-center">
                         <td class="product-remove"><a href="#" class ='ion-ios-close' data-id="${response.data.ProductId}" ></a></td>
@@ -49,7 +51,7 @@ function openDB()
                         <td class="price">$${response.data.Price}</td>
                         <td class="quantity">
                             <div class="input-group mb-3">
-                                <input type="number" name="quantity" class="quantity form-control input-number" value="${product.quantity}" min="1" max="100">
+                                <input type="number" name="quantity" class="quantity form-control input-number" value="${product.quantity}" min="1" max="${productQuantity}">
                             </div>
                         </td>
                         <td class="total">$${product.quantity * response.data.Price}</td>
@@ -267,6 +269,30 @@ function showNoProductsWarning()
 
     productsContainer.innerHTML = element
 }
+
+
+function getDBQuantity()
+{
+    const tx = db.transaction(ORDERS_STORE_NAME,'readonly')
+    const store = tx.objectStore(ORDERS_STORE_NAME)
+    const req = store.getAll()
+    req.onsuccess = e=>{
+       let orders = event.target.result
+        orders=orders.map(order => order.products)
+        orders.forEach(productsOrder=>{
+           productsOrder.forEach(product =>{
+            if(MaxQuantity.hasOwnProperty(`${product.id}`)){
+                MaxQuantity[product.id]+=+product.quantity
+            }
+            else{
+             Object.defineProperty(MaxQuantity,`${product.id}`,{writable:true,value:+product.quantity})
+            }
+         })
+        })
+    }
+}
+
+
 
 
 
