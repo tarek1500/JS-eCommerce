@@ -1,4 +1,5 @@
 const productsContainer = document.querySelector('#products')
+let MaxQuantity={}
 const httpReq = new XMLHttpRequest()
 const url = 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/'
 httpReq.open('GET', url)
@@ -22,7 +23,7 @@ function viewResponse() {
                                 </div>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][0]['ProductId']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][0]['ProductId']}" data-max="${productsList['data'][0]['Quantity']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
                             </p>
                         </div>
                     </div>
@@ -47,7 +48,7 @@ function viewResponse() {
                                 </div>
                             </div>
                             <p class="bottom-area d-flex px-3">
-                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][4]['ProductId']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][4]['ProductId']}" data-max="${productsList['data'][4]['Quantity']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
                             </p>
                         </div>
                     </div>
@@ -61,47 +62,24 @@ function viewResponse() {
   
     
 }
-// $('body').delegate('#addToCart','click',addToCart)
 $('body').delegate('.add-to-cart','click',addToCart)
 
 
 function addToCart(event)
 {
     event.preventDefault()
-    // const product_id=this.parentElement.parentElement.querySelector('#productId').innerText
     const product_id= this.getAttribute('data-id')
-    let quantity=1001;
+    const APImax=this.getAttribute('data-max')
     console.log(product_id);
-    
-    // console.log(this.parentElement.parentElement.querySelector('#productId').innerText);
     if(db instanceof IDBDatabase)
-    {
-        
+    {        
+        if(APImax-MaxQuantity[product_id]==0)
+        {
+            this.innerText="out of stock"
+        }
+        else{
         const tx = db.transaction(CART_STORE_NAME , 'readwrite')
-        // console.log(tx);
-        // console.log(CART_STORE_NAME);
-        
         const cartStore = tx.objectStore(CART_STORE_NAME)
-        // console.log(cartStore);
-        
-    //    console.log(getRequest);
-       
-        // const prod_idx=cartStore.index('prod_idx')
-        // let result=prod_idx.get(product_id)
-
-        // result.onsuccess=e=>{
-            
-        //     this.quantity=e.target.result.quantity
-        // //    console.log(e.target.result.prod_id)
-        //      console.log(this.quantity);
-        //      
-        
-
-        // }
-        
-
-        // console.log(quantity)
-      
         let addrequest= cartStore.add({
 
                     prod_id : product_id , 
@@ -110,17 +88,20 @@ function addToCart(event)
         addrequest.onsuccess=e=>{
 
             console.log("added succesfully");
+            this.innerText= 'added succesfully'
             
         }
         
         addrequest.onerror = e=>{
             console.log(e.target.error);
             console.log("already exist");
+            this.innerText='already exist'
             
             
         }
         
     }
+}
 
 }
 
@@ -128,6 +109,7 @@ const DBName = 'cart'
 const DBVersion = 1
 let db;
 const CART_STORE_NAME ='Cart_Orders' 
+const ORDERS_STORE_NAME = 'Orders_History'
 if ('indexedDB' in window)
     openDB()
 function openDB()
@@ -139,6 +121,7 @@ function openDB()
         if(DBVersion < 2)
         {
             db.createObjectStore(CART_STORE_NAME,{keyPath:'id',autoIncrement : true})
+            db.createObjectStore(ORDERS_STORE_NAME ,{keyPath:'id',autoIncrement:true})
             tx=req.transaction.objectStore(CART_STORE_NAME)
             prod_index=tx.createIndex('prod_idx','prod_id',{unique : true})
         }
@@ -149,8 +132,29 @@ function openDB()
 
         console.log("onsuccess");
         db = event.target.result
+        getDBQuantity()
         
     })
 }
 
 
+function getDBQuantity()
+{
+    const tx = db.transaction(ORDERS_STORE_NAME,'readonly')
+    const store = tx.objectStore(ORDERS_STORE_NAME)
+    const req = store.getAll()
+    req.onsuccess = e=>{
+       let orders = event.target.result
+        orders=orders.map(order => order.products)
+        orders.forEach(productsOrder=>{
+           productsOrder.forEach(product =>{
+            if(MaxQuantity.hasOwnProperty(`${product.id}`)){
+                MaxQuantity[product.id]+=+product.quantity
+            }
+            else{
+             Object.defineProperty(MaxQuantity,`${product.id}`,{writable:true,value:+product.quantity})
+            }
+         })
+        })
+    }
+}
