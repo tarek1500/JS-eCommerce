@@ -2,9 +2,9 @@
 //queryString = queryString.substring(1);
 //var url = 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/HT-5000' ;
 //+ queryString;
-//var queryString = decodeURIComponent(window.location.search); //parsing
-//queryString = queryString.substring(1);
-var queryString = 'HT-1000';
+var queryString = decodeURIComponent(window.location.search); //parsing
+queryString = queryString.substring(1);
+var queryString = 'HT-1002';
 var url = 'https://afternoon-falls-30227.herokuapp.com/api/v1/products/' + queryString;
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
