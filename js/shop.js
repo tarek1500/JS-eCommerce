@@ -89,6 +89,7 @@ function addToCart(event)
 
             console.log("added succesfully");
             this.innerText= 'added succesfully'
+            updateCartTotalNumber()
             
         }
         
@@ -133,6 +134,7 @@ function openDB()
         console.log("onsuccess");
         db = event.target.result
         getDBQuantity()
+        updateCartTotalNumber()
         
     })
 }
@@ -156,5 +158,26 @@ function getDBQuantity()
             }
          })
         })
+    }
+}
+
+function updateCartTotalNumber()
+{
+    if(db instanceof IDBDatabase)
+    {
+        // const totalNumber = document.querySelector('.icon-shopping_cart')
+        const totalNumber = document.querySelector('#totalNumber')
+        const tx= db.transaction(CART_STORE_NAME,'readwrite')
+        const store=tx.objectStore(CART_STORE_NAME)
+        const getALLReq = store.getAll()
+        getALLReq.onsuccess = e=>{
+            // console.log(event.target.result.length);
+            totalNumber .textContent=`[${event.target.result.length}]`
+            if(event.target.result.length == 0)
+            {
+                showNoProductsWarning()
+            }
+        }
+        
     }
 }
