@@ -131,61 +131,6 @@ document.addEventListener('DOMContentLoaded', e => {
 
 let MaxQuantity={}
 
-    const productsList = JSON.parse(httpReq.response)
-    let product = `
-                <div class="col-sm-6 col-md-6 col-lg-4 " >
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="${productsList['data'][0]['ProductPicUrl']}" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 px-3">
-                            <h3><a href="#">${productsList['data'][0]['Name']}</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span>$${productsList['data'][0]['Price']}</span></p>
-                                    
-                                </div>
-                            </div>
-                            <p class="bottom-area d-flex px-3">
-                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][0]['ProductId']}" data-max="${productsList['data'][0]['Quantity']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>`
-
-
-    productsContainer.innerHTML+=product
-
-
-     product = `
-                <div class="col-sm-6 col-md-6 col-lg-4 " >
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="${productsList['data'][4]['ProductPicUrl']}" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 px-3">
-                            <h3><a href="#">${productsList['data'][4]['Name']}</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing">
-                                    <p class="price"><span>$${productsList['data'][4]['Price']}</span></p>
-                                    
-                                </div>
-                            </div>
-                            <p class="bottom-area d-flex px-3">
-                                <a href="#" class="add-to-cart text-center py-2 mr-1"  data-id="${productsList['data'][4]['ProductId']}" data-max="${productsList['data'][4]['Quantity']}"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-                            </p>
-                        </div>
-                    </div>
-                </div>`
-                productsContainer.innerHTML+=product
-
-
-
-    
-    
-  
-    
-}
 $('body').delegate('.add-to-cart','click',addToCart)
 
 
