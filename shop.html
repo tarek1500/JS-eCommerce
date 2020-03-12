@@ -47,7 +47,7 @@
 					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+					<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart" id="totalNumber">[0]</span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -68,8 +68,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-lg-10 order-md-last">
-					<div class="row">
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+					<div class="row" id="products">
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" >
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-1.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -79,6 +79,7 @@
 									<div class="d-flex">
 										<div class="pricing">
 											<p class="price"><span>$120.00</span></p>
+											<p><span>HT-1000</span></p>
 										</div>
 									</div>
 									<p class="bottom-area d-flex px-3">
@@ -86,8 +87,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-3.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -104,8 +105,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-4.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -122,8 +123,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-5.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -140,8 +141,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-6.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -158,8 +159,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-7.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -176,8 +177,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-8.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -194,8 +195,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-6.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -212,8 +213,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-5.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -230,8 +231,8 @@
 									</p>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+						</div> -->
+						<!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
 							<div class="product">
 								<a href="#" class="img-prod"><img class="img-fluid" src="img/product-5.jpg" alt="Colorlib Template">
 									<div class="overlay"></div>
@@ -248,7 +249,7 @@
 									</p>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="row mt-5">
 						<div class="col text-center">
@@ -384,5 +385,6 @@
 	<script src="js/core/bootstrap-datepicker.js"></script>
 	<script src="js/core/scrollax.min.js"></script>
 	<script src="js/core/main.js"></script>
+	<script src="js/shop.js"></script>
 </body>
 </html>
