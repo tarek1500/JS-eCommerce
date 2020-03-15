@@ -19,23 +19,13 @@ req.onsuccess=e => {
         data[1].textContent = cursor.value.date;
         data[2].textContent = cursor.value.total;
 
-
         myrow.appendChild(row);
         data.forEach(element => {
             element.classList.add('px-5','py-3')
-            console.log(element);
-            
             row.append(element);    
         });
 
         cursor.continue()
-        
-
     }
 }
 
-
-
-
-
-// row.appendChild(data);

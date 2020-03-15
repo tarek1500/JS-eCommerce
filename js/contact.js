@@ -33,7 +33,8 @@ function sendData()
 
 
       xhr.onload = () => {
-            if (xhr.status >= 400) {
+
+            if (xhr.status >= 300) {
                 console.log(xhr.response);
 
                 if(xhr.response.error.name){
@@ -48,21 +49,42 @@ function sendData()
                     emailError.textContent = ''
                 }
 
-                if(subject.textContent == ''){
-                    subjectError.textContent = "Subject is Required";
+
+                if(!subject.value){
+                    subjectError.textContent = 'Subject Is Required'
+                    res.textContent = ''
                 }else{
                     subjectError.textContent = ''
                 }
-            
-                if(message.textContent == ''){
-                    messageError.textContent = "Message is Required";
-                }else{
+
+
+                if(!message.value){
+                    messageError.textContent = 'Message Is Required'
+                    res.textContent = ''
+                } else{
                     messageError.textContent = ''
                 }
-            
-            } else {
-                res.textContent = xhr.response.message
-                console.log(xhr.response);   
+                
+            }else {
+
+                if(!subject.value){
+                    subjectError.textContent = 'Subject Is Required'
+                    res.textContent = ''
+                }
+                
+                
+                if(!message.value){
+                    messageError.textContent = 'Message Is Required'
+                    res.textContent = ''
+                } 
+                
+                if (xhr.status == 200 && message.value && subject.value) {
+                    messageError.textContent = ''
+                    subjectError.textContent = ''
+
+                    res.textContent = xhr.response.message
+                    console.log(xhr.response);   
+                }
             }
             };
         
