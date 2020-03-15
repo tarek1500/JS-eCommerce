@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', e => {
-	let searchForm = document.querySelector('.subscribe-form');
-	searchForm.addEventListener('submit', e => {
-		e.preventDefault();
-
-		let search = e.target.querySelector('input[type=text]').value;
-		window.location.href = `search.html?${search}`;
-	});
-
 	let productsUrl = `https://afternoon-falls-30227.herokuapp.com/api/v1/products?page=6&limit=2`;
 	fetch(productsUrl).then(response => response.json()).then(response => {
 		if (response.status) {
@@ -90,7 +82,7 @@ document.addEventListener('DOMContentLoaded', e => {
 					</div>
 					<div class="col-md-7 py-3 py-md-5 fadeInUp ftco-animated">
 						<div class="text text-2 py-md-5">
-							<h2 class="mb-4">New Accessories Collection 2020</h2>
+							<h2 class="mb-4">New Laptops Collection 2020</h2>
 							<p>${products[1].Description}</p>
 							<p><a href="product.html?${products[1].ProductId}" class="btn btn-white px-4 py-3">Shop now</a></p>
 						</div>

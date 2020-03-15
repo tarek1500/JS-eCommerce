@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', e => {
 											</div>
 										</div>
 										<p class="bottom-area d-flex px-3">
-											<a href="#" class="add-to-cart text-center py-2 mr-1">
+											<a href="#" class="add-to-cart text-center py-2 mr-1" data-id="${product.ProductId}" data-max="${product.Quantity}">
 												<span>Add to cart <i class="ion-ios-add ml-1"></i></span>
 											</a>
 										</p>

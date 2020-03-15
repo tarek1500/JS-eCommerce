@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Winkel - Free Bootstrap 4 Template by Colorlib</title>
+	<title>Winkel</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -11,20 +11,20 @@
 	<link rel="stylesheet" href="css/core/animate.css">
 
 	<link rel="stylesheet" href="css/core/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/core/owl.theme.deﻵBfault.min.css">
+	<link rel="stylesheet" href="css/core/owl.theme.default.min.css">
 	<link rel="stylesheet" href="css/core/magnific-popup.css">
 
 	<link rel="stylesheet" href="css/core/aos.css">
 
 	<link rel="stylesheet" href="css/core/ionicons.min.css">
-B
+
 	<link rel="stylesheet" href="css/core/bootstrap-datepicker.css">
 	<link rel="stylesheet" href="css/core/jquery.timepicker.css">
 
 	<link rel="stylesheet" href="css/core/flaticon.css">
 	<link rel="stylesheet" href="css/core/icomoon.css">
 	<link rel="stylesheet" href="css/core/style.css">
-	<link rel="stylesheet" href="css/cart.css">
+	<link rel="stylesheet" href="css/common/search.css">
 </head>
 <body class="goto-here">
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -36,24 +36,24 @@ B
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-					<li class="nav-item dropdown active">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="shop.html">Shop</a>
-							<a class="dropdown-item" href="product.html">Single Product</a>
-							<a class="dropdown-item" href="cart.html">Cart</a>
-							<a class="dropdown-item" href="checkout.html">Checkout</a>
-						</div>
-					</li>
-					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+					<li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
+					<li class="nav-item active"><a href="cart.html" class="nav-link">Cart</a></li>
+					<li class="nav-item"><a href="history.html" class="nav-link">History</a></li>
 					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 					<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart" id="totalNumber">[0]</span></a></li>
+					<li class="nav-item">
+						<form action="#" class="search-form">
+							<div class="form-group d-flex">
+								<input type="text" class="form-control" placeholder="Product...">
+								<input type="submit" value="Search" class="submit px-3">
+							</div>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<!-- END nav -->
 
 	<div class="hero-wrap hero-bread" style="background-image: url('img/bg_6.jpg');">
 		<div class="container">
@@ -87,31 +87,14 @@ B
 									<td class="image-prod"><div class="img"></div></td>
 									<td class="product-name" style ="width: 55%;">
 										<h3></h3>
-										<p>No Products to Show <br><a href="./shop.html">add some</a></p>
+										<p>No Products to Show <br><a href="shop.html">Add</a></p>
 									</td>
 									<td class="price"></td>
 									<td class="quantity">
-										<div class="input-group mb-3">
-											
-										</div>
+										<div class="input-group mb-3"></div>
 									</td>
 									<td class="total"></td>
 								</tr>
-								<!-- <tr class="text-center">
-									<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-									<td class="image-prod"><div class="img" style="background-image:url(img/product-4.jpg);"></div></td>
-									<td class="product-name">
-										<h3>Young Woman Wearing Dress</h3>
-										<p>Far far away, behind the word mountains, far from the countries</p>
-									</td>
-									<td class="price">$15.70</td>
-									<td class="quantity">
-										<div class="input-group mb-3">
-											<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-										</div>
-									</td>
-									<td class="total">$15.70</td>
-								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -123,17 +106,16 @@ B
 						<h3>Cart Totals</h3>
 						<p class="d-flex total-price">
 							<span>Total</span>
-							<span id="cartTotal">$00.00</span>
+							<span id="cartTotal">00.00 EUR</span>
 						</p>
 					</div>
 					<p class="text-center"><a href="#" class="btn btn-primary py-3 px-4" id="checkout">Proceed to Checkout</a></p>
-					<div class="alert alert-success d-none  text-center rounded-pill" role="alert">
-					  Order Saved
-					</div>
+					<div class="alert alert-success d-none text-center rounded-pill" role="alert">Order Saved</div>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<footer class="ftco-footer bg-light ftco-section">
 		<div class="container">
 			<div class="row">
@@ -144,25 +126,14 @@ B
 				</div>
 			</div>
 			<div class="row mb-5">
-				<div class="col-md-8">
+				<div class="col">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">Winkel</h2>
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-						<ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+						<ul class="ftco-footer-social list-unstyled text-center mt-5">
 							<li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
 							<li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
 							<li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Menu</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">Shop</a></li>
-							<li><a href="#" class="py-2 d-block">About</a></li>
-							<li><a href="#" class="py-2 d-block">Journal</a></li>
-							<li><a href="#" class="py-2 d-block">Contact Us</a></li>
 						</ul>
 					</div>
 				</div>
@@ -181,7 +152,6 @@ B
 		</div>
 	</footer>
 
-	<!-- loader -->
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">
 			<circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
@@ -203,32 +173,26 @@ B
 	<script src="js/core/bootstrap-datepicker.js"></script>
 	<script src="js/core/scrollax.min.js"></script>
 	<script src="js/core/main.js"></script>
+	<script src="js/common/search.js"></script>
+	<script src="js/common/cart.js"></script>
 	<script src="js/cart.js"></script>
 	<script>
 		$(document).ready(function() {
 			var quantitiy = 0;
+
 			$('.quantity-right-plus').click(function(e) {
-				// Stop acting like a button
 				e.preventDefault();
-				// Get the field name
 				var quantity = parseInt($('#quantity').val());
-				// If is not undefined
 				$('#quantity').val(quantity + 1);
-				// Increment
 			});
 			$('.quantity-left-minus').click(function(e) {
-				// Stop acting like a button
 				e.preventDefault();
-				// Get the field name
 				var quantity = parseInt($('#quantity').val());
-				// If is not undefined
-				// Increment
-				if (quantity > 0) {
+
+				if (quantity > 0)
 					$('#quantity').val(quantity - 1);
-				}
 			});
 		});
 	</script>
-	
 </body>
 </html>
