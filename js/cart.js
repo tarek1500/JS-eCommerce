@@ -171,6 +171,7 @@ checkoutBtn.addEventListener('click', e => {
 				setTimeout(() => {
 					successAlert.classList.add('d-none');
 				}, 10000);
+				showNoProductsWarning();
 			}
 		}
 	}
